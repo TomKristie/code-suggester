@@ -22,7 +22,7 @@ describe('main', () => {
       .value({...yargs.argv, _: ['pr'], 'git-dir': 'some/dir'});
     const stubHelperHandlers = {
       getChanges: () => {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
           resolve(new Map());
         });
       },
