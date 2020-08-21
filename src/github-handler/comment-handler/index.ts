@@ -39,5 +39,6 @@ export async function comment(
     pageSize
   );
   getSuggestionPatches(rawChanges, invalidFiles, validFileLines);
-  // TODO get the raw file content from the new range of the hunk and make a PR with that
+  // TODO (1) make a PR
+  // TODO (2) make a timeline comment
 }
