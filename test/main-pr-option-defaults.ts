@@ -15,10 +15,7 @@
 import {expect} from 'chai';
 import {describe, it, before} from 'mocha';
 import {setup} from './util';
-import {
-  CreatePullRequestUserOptions,
-  CreatePullRequestSettings,
-} from '../src/types';
+import {CreatePullRequestUserOptions, CreatePullRequestSettings} from '../src/types';
 import {addPullRequestDefaults} from '../src/default-options-handler';
 
 before(() => {
@@ -113,7 +110,7 @@ describe('Create with defaults', () => {
     expect(settings).to.deep.equal(options);
   });
 
-  it('Maps all of the user input into an object with no optional values', () => {
+  it("Maps all of the user input into an object with no optional values", () => {
     const options: CreatePullRequestUserOptions = {
       upstreamOwner: 'owner',
       upstreamRepo: 'repo',
@@ -127,7 +124,7 @@ describe('Create with defaults', () => {
       maintainersCanModify: false,
     };
 
-    const settings: CreatePullRequestSettings = {
+    const expectedSettings: CreatePullRequestSettings = {
       upstreamOwner: 'owner',
       upstreamRepo: 'repo',
       branch: 'custom-code-suggestion-branch',
@@ -139,7 +136,7 @@ describe('Create with defaults', () => {
       primary: 'non-default-primary-branch',
       maintainersCanModify: false,
     };
-    const gitHubPr = addPullRequestDefaults(options);
-    expect(gitHubPr).to.deep.equal(settings);
+    const settings = addPullRequestDefaults(options);
+    expect(settings).to.deep.equal(expectedSettings);
   });
 });
