@@ -15,7 +15,10 @@
 import {expect} from 'chai';
 import {describe, it, before} from 'mocha';
 import {setup} from './util';
-import {CreatePullRequestUserOptions, CreatePullRequestSettings} from '../src/types';
+import {
+  CreatePullRequestUserOptions,
+  CreatePullRequestSettings,
+} from '../src/types';
 import {addPullRequestDefaults} from '../src/default-options-handler';
 
 before(() => {
@@ -24,15 +27,15 @@ before(() => {
 
 describe('Create with defaults', () => {
   it('Populates all un-specified parameters with a default when only repo domain, description, title, and message are provided', () => {
-    const upstreamOnlySettings: CreatePullRequestUserOptions = {
+    const options: CreatePullRequestUserOptions = {
       upstreamOwner: 'owner',
       upstreamRepo: 'repo',
       description: 'custom description',
       title: 'chore: custom title',
       message: 'chore: custom description',
     };
-    const gitHubPrSettings = addPullRequestDefaults(upstreamOnlySettings);
-    expect(gitHubPrSettings).to.deep.equal({
+    const settings = addPullRequestDefaults(options);
+    expect(settings).to.deep.equal({
       upstreamOwner: 'owner',
       upstreamRepo: 'repo',
       branch: 'code-suggestions',
@@ -47,7 +50,7 @@ describe('Create with defaults', () => {
   });
 
   it('Populates all un-specified parameters with a default when only repo domain, title, description, message and primary are provided', () => {
-    const upstreamAndPrimary: CreatePullRequestUserOptions = {
+    const options: CreatePullRequestUserOptions = {
       upstreamOwner: 'owner',
       upstreamRepo: 'repo',
       primary: 'non-default-primary-branch',
@@ -55,8 +58,8 @@ describe('Create with defaults', () => {
       title: 'chore: custom title',
       message: 'chore: custom description',
     };
-    const gitHubPr = addPullRequestDefaults(upstreamAndPrimary);
-    expect(gitHubPr).to.deep.equal({
+    const settings = addPullRequestDefaults(options);
+    expect(settings).to.deep.equal({
       upstreamOwner: 'owner',
       upstreamRepo: 'repo',
       branch: 'code-suggestions',
@@ -71,15 +74,15 @@ describe('Create with defaults', () => {
   });
 
   it('Populates all un-specified parameters with a default when only repo domain, title, description, message and primary are provided', () => {
-    const upstreamAndPrDescription: CreatePullRequestUserOptions = {
+    const options: CreatePullRequestUserOptions = {
       upstreamOwner: 'owner',
       upstreamRepo: 'repo',
       description: 'Non-default PR description',
       title: 'chore: code suggestions non-default PR ttile',
       message: 'chore: custom code suggestions message',
     };
-    const gitHubPr3 = addPullRequestDefaults(upstreamAndPrDescription);
-    expect(gitHubPr3).to.deep.equal({
+    const settings = addPullRequestDefaults(options);
+    expect(settings).to.deep.equal({
       upstreamOwner: 'owner',
       upstreamRepo: 'repo',
       branch: 'code-suggestions',
@@ -106,13 +109,11 @@ describe('Create with defaults', () => {
       primary: 'non-default-primary-branch',
       maintainersCanModify: false,
     };
-    const gitHubPr = addPullRequestDefaults(options);
-    console.log()
-    expect(Object.keys(gitHubPr).length).to.equal(Object.keys(options).length);
-    expect(gitHubPr).to.deep.equal(options);
+    const settings = addPullRequestDefaults(options);
+    expect(settings).to.deep.equal(options);
   });
 
-  it("Maps all of the user input into an object with no optional values", () => {
+  it('Maps all of the user input into an object with no optional values', () => {
     const options: CreatePullRequestUserOptions = {
       upstreamOwner: 'owner',
       upstreamRepo: 'repo',
