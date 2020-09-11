@@ -70,7 +70,8 @@ export interface Description {
 }
 
 /**
- * The user options for creating GitHub PRs
+ * The user options for creating GitHub PRs.
+ * Fields are all mapped to non-optional in CreatePullRequestSettings
  */
 export interface CreatePullRequestUserOptions {
   // the owner of the target fork repository
@@ -97,8 +98,9 @@ export interface CreatePullRequestUserOptions {
 
 /**
  * GitHub data needed for creating a PR
+ * The non-optional version of CreatePullRequestUserOptions
  */
-export interface CreatePullRequest {
+export interface CreatePullRequestSettings {
   // the owner of the target fork repository
   upstreamOwner: string;
   // the name of the target fork repository
@@ -113,6 +115,8 @@ export interface CreatePullRequest {
   branch: string;
   // Whether or not to force branch reference updates.
   force: boolean;
+  // Should a fork be used when creating pull request
+  fork: boolean;
   // Primary upstream branch to open PRs against.
   primary: string;
   // Whether or not maintainers can modify the PR.

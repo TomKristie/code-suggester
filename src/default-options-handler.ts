@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {CreatePullRequest, CreatePullRequestUserOptions} from './types';
+import {CreatePullRequestSettings, CreatePullRequestUserOptions} from './types';
 
 const DEFAULT_BRANCH_NAME = 'code-suggestions';
 const DEFAULT_PRIMARY_BRANCH = 'master';
@@ -23,18 +23,19 @@ const DEFAULT_PRIMARY_BRANCH = 'master';
  * For ESCMAScript, null/undefined values are preserved for required fields.
  * Recommended with an object validation function to check empty strings and incorrect types.
  * @param {PullRequestUserOptions} options the user-provided github pull request options
- * @returns {CreatePullRequest} git hub context with defaults applied
+ * @returns {CreatePullRequestSettings} git hub context with defaults applied
  */
 function addPullRequestDefaults(
   options: CreatePullRequestUserOptions
-): CreatePullRequest {
-  const pullRequestSettings: CreatePullRequest = {
+): CreatePullRequestSettings {
+  const pullRequestSettings: CreatePullRequestSettings = {
     upstreamOwner: options.upstreamOwner,
     upstreamRepo: options.upstreamRepo,
     description: options.description,
     title: options.title,
     message: options.message,
     force: options.force || false,
+    fork: options.fork === false ? false : true,
     branch:
       typeof options.branch === 'string' ? options.branch : DEFAULT_BRANCH_NAME,
     primary:
